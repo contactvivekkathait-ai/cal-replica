@@ -1,0 +1,8 @@
+{
+  "name": "cal-booking",
+  "version": "1.0.0",
+  "description": "Google Calendar booking page for Vercel",
+  "dependencies": {
+    "googleapis": "^140.0.0"
+  }
+}

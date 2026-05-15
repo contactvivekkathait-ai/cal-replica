@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Meeting · Alex Johnson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --ink:#0f0f0f;
+  --ink-2:#3a3a3a;
+  --ink-3:#777;
+  --ink-4:#aaa;
+  --paper:#faf9f7;
+  --white:#ffffff;
+  --border:#e8e4df;
+  --border-2:#d4cec7;
+  --accent:#1a6b4a;
+  --accent-light:#e8f5ee;
+  --accent-mid:#2d9467;
+  --warn:#dc2626;
+  --r:14px;
+  --r-sm:9px;
+  --r-lg:20px;
+  --shadow-xs:0 1px 3px rgba(0,0,0,.06);
+  --shadow-sm:0 2px 8px rgba(0,0,0,.07);
+  --shadow-md:0 8px 32px rgba(0,0,0,.1);
+  --shadow-lg:0 24px 80px rgba(0,0,0,.14);
+  --transition:.18s cubic-bezier(.4,0,.2,1);
+}
+
+html,body{height:100%}
+
+body{
+  font-family:'Outfit',system-ui,sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 10%, rgba(26,107,74,.06) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 80% 90%, rgba(26,107,74,.05) 0%, transparent 70%);
+  pointer-events:none;z-index:0;
+}
+
+.shell{position:relative;z-index:1;width:100%;max-width:920px;}
+
+/* PROGRESS */
+.progress-bar{
+  display:flex;align-items:center;justify-content:center;
+  gap:8px;margin-bottom:24px;
+}
+.step{
+  display:flex;align-items:center;gap:8px;
+  font-size:12.5px;font-weight:500;color:var(--ink-4);
+  transition:color var(--transition);
+}
+.step.active{color:var(--accent);}
+.step.done{color:var(--ink-3);}
+.step-dot{
+  width:26px;height:26px;border-radius:50%;
+  border:2px solid var(--border-2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;
+  background:var(--white);color:var(--ink-4);
+  transition:all var(--transition);flex-shrink:0;
+}
+.step.active .step-dot{
+  border-color:var(--accent);background:var(--accent);color:#fff;
+  box-shadow:0 0 0 4px rgba(26,107,74,.15);
+}
+.step.done .step-dot{
+  border-color:var(--accent);background:var(--accent-light);color:var(--accent);
+}
+.step-line{
+  width:36px;height:2px;background:var(--border);border-radius:2px;
+  transition:background var(--transition);
+}
+.step-line.done{background:var(--accent-mid);opacity:.4;}
+
+/* CARD */
+.card{
+  background:var(--white);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-lg);border:1px solid var(--border);
+  display:flex;overflow:hidden;
+  animation:rise .5s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes rise{
+  from{opacity:0;transform:translateY(28px) scale(.98)}
+  to{opacity:1;transform:none}
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:260px;min-width:260px;padding:36px 28px;
+  background:linear-gradient(160deg,#f5f2ee 0%,#ece8e3 100%);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;gap:0;
+  position:relative;overflow:hidden;
+}
+.sidebar::before{
+  content:'';position:absolute;top:-60px;right:-60px;
+  width:160px;height:160px;border-radius:50%;
+  background:radial-gradient(circle,rgba(26,107,74,.1) 0%,transparent 70%);
+}
+.avatar-wrap{margin-bottom:20px;position:relative;display:inline-block;}
+.avatar{
+  width:60px;height:60px;border-radius:50%;
+  background:linear-gradient(135deg,#1a6b4a,#2d9467);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;font-weight:700;color:#fff;letter-spacing:-1px;
+  box-shadow:0 4px 16px rgba(26,107,74,.3);
+  font-family:'Instrument Serif',serif;
+}
+.online-dot{
+  position:absolute;bottom:2px;right:2px;
+  width:13px;height:13px;border-radius:50%;
+  background:#22c55e;border:2.5px solid #ece8e3;
+}
+.sidebar-host{font-size:12px;font-weight:500;color:var(--ink-3);margin-bottom:4px;letter-spacing:.02em;text-transform:uppercase;}
+.sidebar-title{font-family:'Instrument Serif',serif;font-size:24px;line-height:1.2;color:var(--ink);margin-bottom:20px;}
+.sidebar-chips{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.chip{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--ink-2);font-weight:400;}
+.chip-icon{
+  width:30px;height:30px;border-radius:8px;
+  background:var(--white);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:var(--shadow-xs);
+}
+.chip-icon svg{width:14px;height:14px;color:var(--accent);}
+.sidebar-divider{height:1px;background:var(--border);margin:20px 0;}
+.sidebar-desc{font-size:13px;line-height:1.7;color:var(--ink-3);flex:1;}
+.sidebar-footer{
+  margin-top:auto;padding-top:24px;
+  display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-4);
+}
+.logo-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  background:var(--white);border:1px solid var(--border);
+  padding:3px 8px;border-radius:6px;font-size:11px;font-weight:600;color:var(--ink-2);
+  box-shadow:var(--shadow-xs);
+}
+
+/* MAIN */
+.main{flex:1;padding:36px 32px;display:flex;flex-direction:column;min-height:540px;}
+
+/* VIEWS */
+.view{display:none;flex-direction:column;flex:1;animation:fadeSlide .25s ease both;}
+.view.active{display:flex;}
+@keyframes fadeSlide{
+  from{opacity:0;transform:translateX(12px)}
+  to{opacity:1;transform:none}
+}
+
+/* CALENDAR */
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
+.cal-month{font-family:'Instrument Serif',serif;font-size:22px;color:var(--ink);}
+.nav-group{display:flex;gap:6px;}
+.nav-btn{
+  width:34px;height:34px;border-radius:var(--r-sm);
+  border:1.5px solid var(--border);background:var(--white);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  color:var(--ink-2);transition:all var(--transition);box-shadow:var(--shadow-xs);
+}
+.nav-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent);background:var(--accent-light);transform:scale(1.05);}
+.nav-btn:disabled{opacity:.3;cursor:not-allowed;}
+.weekday-row{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:8px;}
+.wd{text-align:center;font-size:11px;font-weight:700;color:var(--ink-4);letter-spacing:.08em;text-transform:uppercase;padding:6px 0;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
+.day{
+  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  border-radius:var(--r-sm);font-size:13.5px;font-weight:500;
+  transition:all var(--transition);position:relative;cursor:default;color:var(--ink-4);
+}
+.day.avail{
+  color:var(--ink);cursor:pointer;background:var(--white);
+  border:1.5px solid var(--border);box-shadow:var(--shadow-xs);
+}
+.day.avail:hover{
+  background:var(--accent-light);border-color:var(--accent);color:var(--accent);
+  transform:scale(1.08);box-shadow:0 4px 12px rgba(26,107,74,.15);z-index:1;
+}
+.day.sel{
+  background:var(--accent)!important;border-color:var(--accent)!important;color:#fff!important;
+  transform:scale(1.08);box-shadow:0 4px 16px rgba(26,107,74,.35)!important;font-weight:700;z-index:1;
+}
+.day.today-mark::after{
+  content:'';position:absolute;bottom:5px;left:50%;transform:translateX(-50%);
+  width:4px;height:4px;border-radius:50%;background:var(--accent);
+}
+.day.sel.today-mark::after{background:rgba(255,255,255,.7);}
+.day.avail.today-mark{border-color:var(--accent-mid);font-weight:600;}
+.tz-row{
+  margin-top:20px;display:flex;align-items:center;gap:7px;
+  font-size:12px;color:var(--ink-4);
+  background:var(--paper);border:1px solid var(--border);padding:8px 12px;border-radius:8px;
+}
+.tz-row svg{width:13px;height:13px;flex-shrink:0;}
+
+/* SLOTS */
+.panel-header{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+.back-btn{
+  width:34px;height:34px;border-radius:var(--r-sm);
+  border:1.5px solid var(--border);background:var(--white);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  color:var(--ink-2);transition:all var(--transition);box-shadow:var(--shadow-xs);flex-shrink:0;
+}
+.back-btn:hover{border-color:var(--ink-2);background:var(--paper);}
+.panel-title{font-family:'Instrument Serif',serif;font-size:20px;color:var(--ink);}
+.panel-sub{font-size:12.5px;color:var(--ink-4);margin-top:2px;}
+.slots-hint{font-size:12.5px;color:var(--ink-3);margin-bottom:16px;margin-left:46px;}
+.slots-wrap{
+  flex:1;overflow-y:auto;padding-right:4px;
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;align-content:start;
+}
+.slots-wrap::-webkit-scrollbar{width:4px;}
+.slots-wrap::-webkit-scrollbar-track{background:transparent;}
+.slots-wrap::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+.slot-btn{
+  height:46px;border-radius:var(--r-sm);border:1.5px solid var(--border);
+  background:var(--white);font-family:'Outfit',sans-serif;
+  font-size:14px;font-weight:500;color:var(--ink-2);cursor:pointer;
+  transition:all var(--transition);box-shadow:var(--shadow-xs);
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.slot-btn:hover{border-color:var(--accent);color:var(--accent);box-shadow:0 4px 12px rgba(26,107,74,.12);transform:translateY(-1px);}
+.slot-btn.picked{border-color:var(--accent);background:var(--accent);color:#fff;box-shadow:0 4px 16px rgba(26,107,74,.3);transform:translateY(-1px);font-weight:600;}
+.slots-footer{
+  margin-top:16px;padding-top:16px;border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.picked-info{font-size:13px;color:var(--ink-3);display:flex;align-items:center;gap:6px;}
+.picked-time{font-weight:600;color:var(--ink);background:var(--accent-light);padding:3px 10px;border-radius:6px;font-size:13px;}
+.next-btn{
+  height:42px;padding:0 22px;border-radius:var(--r-sm);border:none;
+  background:var(--accent);color:#fff;font-family:'Outfit',sans-serif;
+  font-size:14px;font-weight:600;cursor:pointer;transition:all var(--transition);
+  display:flex;align-items:center;gap:8px;box-shadow:0 4px 14px rgba(26,107,74,.3);
+  opacity:0;pointer-events:none;
+}
+.next-btn.show{opacity:1;pointer-events:auto;}
+.next-btn:hover{background:#15593d;transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,107,74,.4);}
+
+/* FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.form-full{grid-column:1/-1;}
+.fgroup{display:flex;flex-direction:column;gap:5px;}
+.flabel{font-size:12px;font-weight:600;color:var(--ink-2);letter-spacing:.03em;text-transform:uppercase;}
+.flabel em{color:var(--warn);font-style:normal;margin-left:2px;}
+.finput,.ftextarea{
+  height:44px;padding:0 14px;border-radius:var(--r-sm);
+  border:1.5px solid var(--border);background:var(--paper);
+  font-family:'Outfit',sans-serif;font-size:14px;color:var(--ink);
+  transition:all var(--transition);outline:none;width:100%;
+}
+.finput:focus,.ftextarea:focus{border-color:var(--accent);background:var(--white);box-shadow:0 0 0 4px rgba(26,107,74,.1);}
+.finput:hover:not(:focus),.ftextarea:hover:not(:focus){border-color:var(--border-2);}
+.finput.err,.ftextarea.err{border-color:var(--warn)!important;}
+.ftextarea{height:88px;padding:12px 14px;resize:none;line-height:1.6;}
+.finput::placeholder,.ftextarea::placeholder{color:var(--ink-4);}
+.booking-preview{
+  background:linear-gradient(135deg,var(--accent-light),#f0fdf4);
+  border:1.5px solid rgba(26,107,74,.2);border-radius:var(--r);
+  padding:14px 16px;margin-bottom:16px;display:flex;align-items:flex-start;gap:12px;
+}
+.preview-icon{
+  width:36px;height:36px;border-radius:9px;background:var(--accent);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.preview-icon svg{width:16px;height:16px;color:#fff;}
+.preview-event{font-weight:600;font-size:14px;color:var(--ink);}
+.preview-when{font-size:12.5px;color:var(--accent);font-weight:500;margin-top:3px;}
+.form-err{
+  font-size:12.5px;color:var(--warn);display:none;align-items:center;gap:5px;
+  background:#fef2f2;border:1px solid #fecaca;padding:8px 12px;border-radius:8px;margin-bottom:10px;
+}
+.form-err.show{display:flex;}
+.form-footer{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:auto;padding-top:16px;border-top:1px solid var(--border);
+}
+.ghost-btn{
+  height:42px;padding:0 18px;border-radius:var(--r-sm);
+  border:1.5px solid var(--border);background:transparent;
+  font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;
+  color:var(--ink-2);cursor:pointer;transition:all var(--transition);
+}
+.ghost-btn:hover{background:var(--paper);border-color:var(--border-2);}
+.submit-btn{
+  height:42px;padding:0 24px;border-radius:var(--r-sm);border:none;
+  background:var(--accent);color:#fff;font-family:'Outfit',sans-serif;
+  font-size:14px;font-weight:600;cursor:pointer;transition:all var(--transition);
+  display:flex;align-items:center;gap:8px;box-shadow:0 4px 14px rgba(26,107,74,.3);
+}
+.submit-btn:hover{background:#15593d;transform:translateY(-1px);}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.spinner{
+  width:15px;height:15px;border:2.5px solid rgba(255,255,255,.35);
+  border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* SUCCESS */
+.success-wrap{
+  display:none;flex-direction:column;align-items:center;
+  justify-content:center;gap:22px;text-align:center;flex:1;padding:24px;
+}
+.success-wrap.active{display:flex;}
+.confetti-ring{
+  width:80px;height:80px;border-radius:50%;
+  background:conic-gradient(from 0deg,#1a6b4a,#22c55e,#86efac,#1a6b4a);
+  display:flex;align-items:center;justify-content:center;
+  animation:pop .5s cubic-bezier(.16,1,.3,1) both,spin-slow 6s linear infinite;
+  box-shadow:0 8px 32px rgba(26,107,74,.3);
+}
+@keyframes pop{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+@keyframes spin-slow{to{transform:rotate(360deg)}}
+.confetti-inner{width:68px;height:68px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;}
+.confetti-inner svg{width:32px;height:32px;color:var(--accent);}
+.success-title{font-family:'Instrument Serif',serif;font-size:28px;color:var(--ink);}
+.success-sub{font-size:14px;color:var(--ink-3);line-height:1.7;max-width:380px;margin-top:-10px;}
+.summary-card{
+  background:var(--paper);border:1.5px solid var(--border);border-radius:var(--r);
+  padding:18px 20px;width:100%;max-width:380px;text-align:left;display:flex;flex-direction:column;gap:12px;
+}
+.sum-row{display:flex;align-items:center;gap:10px;font-size:13.5px;}
+.sum-icon{
+  width:30px;height:30px;border-radius:8px;background:var(--accent-light);
+  border:1px solid rgba(26,107,74,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.sum-icon svg{width:13px;height:13px;color:var(--accent);}
+.sum-label{font-size:11px;color:var(--ink-4);text-transform:uppercase;letter-spacing:.05em;font-weight:600;}
+.sum-val{font-weight:500;color:var(--ink);}
+.cal-btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+.cal-btn{
+  height:38px;padding:0 16px;border-radius:var(--r-sm);border:1.5px solid var(--border);
+  background:var(--white);font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;
+  color:var(--ink-2);cursor:pointer;transition:all var(--transition);
+  display:flex;align-items:center;gap:7px;box-shadow:var(--shadow-xs);
+}
+.cal-btn:hover{background:var(--paper);border-color:var(--accent);color:var(--accent);transform:translateY(-1px);}
+.reset-link{
+  background:none;border:none;cursor:pointer;font-family:'Outfit',sans-serif;
+  font-size:13px;color:var(--ink-4);text-decoration:underline;text-underline-offset:3px;transition:color var(--transition);
+}
+.reset-link:hover{color:var(--ink-2);}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+  body{padding:0;align-items:flex-start;}
+  .card{flex-direction:column;border-radius:0;min-height:100vh;}
+  .sidebar{width:100%;min-width:unset;border-right:none;border-bottom:1px solid var(--border);padding:24px 20px;}
+  .main{padding:24px 20px;}
+  .form-grid{grid-template-columns:1fr;}
+  .slots-wrap{grid-template-columns:1fr 1fr;}
+  .progress-bar{display:none;}
+  .sidebar::before{display:none;}
+}
+@media(max-width:380px){.slots-wrap{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <div class="progress-bar" id="progress-bar">
+    <div class="step active" id="step-1"><div class="step-dot">1</div><span>Pick a date</span></div>
+    <div class="step-line" id="line-1"></div>
+    <div class="step" id="step-2"><div class="step-dot">2</div><span>Choose time</span></div>
+    <div class="step-line" id="line-2"></div>
+    <div class="step" id="step-3"><div class="step-dot">3</div><span>Your details</span></div>
+  </div>
+
+  <div class="card">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="avatar-wrap">
+        <div class="avatar">AJ</div>
+        <div class="online-dot"></div>
+      </div>
+      <div class="sidebar-host">Alex Johnson</div>
+      <div class="sidebar-title">30 Minute Meeting</div>
+      <div class="sidebar-chips">
+        <div class="chip">
+          <div class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg></div>
+          30 minutes
+        </div>
+        <div class="chip">
+          <div class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg></div>
+          Google Meet
+        </div>
+        <div class="chip">
+          <div class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          Free, no charge
+        </div>
+      </div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-desc">A quick 1-on-1 sync. Let's talk through ideas, answer questions, or explore collaboration. A Meet link will be emailed after booking.</div>
+      <div class="sidebar-footer">
+        <span>Powered by</span>
+        <div class="logo-badge">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+          Cal.com
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+      <!-- VIEW: CALENDAR -->
+      <div class="view active" id="view-cal">
+        <div class="cal-header">
+          <div class="cal-month" id="month-label"></div>
+          <div class="nav-group">
+            <button class="nav-btn" id="prev-btn" onclick="changeMonth(-1)" title="Previous month">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="nav-btn" id="next-btn" onclick="changeMonth(1)" title="Next month">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="weekday-row">
+          <div class="wd">Sun</div><div class="wd">Mon</div><div class="wd">Tue</div>
+          <div class="wd">Wed</div><div class="wd">Thu</div><div class="wd">Fri</div><div class="wd">Sat</div>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+        <div class="tz-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span id="tz-display">Detecting timezone…</span>
+        </div>
+      </div>
+
+      <!-- VIEW: SLOTS -->
+      <div class="view" id="view-slots">
+        <div class="panel-header">
+          <button class="back-btn" onclick="goTo('cal')" title="Back to calendar">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div>
+            <div class="panel-title" id="slots-date-title"></div>
+            <div class="panel-sub">Select a time that works for you</div>
+          </div>
+        </div>
+        <div class="slots-hint">All times are 30 min · <span id="slots-tz-inline"></span></div>
+        <div class="slots-wrap" id="slots-grid"></div>
+        <div class="slots-footer">
+          <div class="picked-info" id="picked-info" style="visibility:hidden;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span class="picked-time" id="picked-time-label"></span>
+            <span style="color:var(--ink-4)">selected</span>
+          </div>
+          <button class="next-btn" id="next-btn-slot" onclick="goTo('form')">
+            Continue
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- VIEW: FORM -->
+      <div class="view" id="view-form">
+        <div class="panel-header" style="margin-bottom:16px;">
+          <button class="back-btn" onclick="goTo('slots')" title="Back to time slots">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div>
+            <div class="panel-title">Your details</div>
+            <div class="panel-sub">Fill in your info to confirm</div>
+          </div>
+        </div>
+        <div class="booking-preview">
+          <div class="preview-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div>
+            <div class="preview-event">30 Minute Meeting · Google Meet</div>
+            <div class="preview-when" id="preview-when"></div>
+          </div>
+        </div>
+        <div class="form-err" id="form-err">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          <span id="form-err-msg"></span>
+        </div>
+        <div class="form-grid">
+          <div class="fgroup">
+            <label class="flabel">Name <em>*</em></label>
+            <input class="finput" id="inp-name" type="text" placeholder="Jane Doe" autocomplete="name">
+          </div>
+          <div class="fgroup">
+            <label class="flabel">Email <em>*</em></label>
+            <input class="finput" id="inp-email" type="email" placeholder="jane@company.com" autocomplete="email">
+          </div>
+          <div class="fgroup">
+            <label class="flabel">Phone</label>
+            <input class="finput" id="inp-phone" type="tel" placeholder="+1 (555) 000-0000" autocomplete="tel">
+          </div>
+          <div class="fgroup">
+            <label class="flabel">Company</label>
+            <input class="finput" id="inp-company" type="text" placeholder="Acme Inc." autocomplete="organization">
+          </div>
+          <div class="fgroup form-full">
+            <label class="flabel">What would you like to discuss?</label>
+            <textarea class="ftextarea" id="inp-notes" placeholder="Share a brief agenda or any questions you'd like to cover…"></textarea>
+          </div>
+        </div>
+        <div class="form-footer">
+          <button class="ghost-btn" onclick="goTo('slots')">← Back</button>
+          <button class="submit-btn" id="submit-btn" onclick="submitBooking()">
+            <span id="submit-txt">Confirm Booking</span>
+            <div class="spinner" id="submit-spinner"></div>
+            <svg id="submit-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="success-wrap" id="view-success">
+        <div class="confetti-ring"><div class="confetti-inner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+        <div>
+          <div class="success-title">You're booked! 🎉</div>
+          <div class="success-sub">A calendar invite has been sent to your inbox. We look forward to chatting soon!</div>
+        </div>
+        <div class="summary-card" id="summary-card"></div>
+        <div>
+          <div style="font-size:11.5px;color:var(--ink-4);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:10px;">Add to your calendar</div>
+          <div class="cal-btns">
+            <button class="cal-btn" onclick="addToCal('google')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Google Calendar
+            </button>
+            <button class="cal-btn" onclick="addToCal('ical')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              iCal / Outlook
+            </button>
+          </div>
+        </div>
+        <button class="reset-link" onclick="resetAll()">Schedule another meeting</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const NOW=new Date();NOW.setHours(0,0,0,0);
+const S={year:NOW.getFullYear(),month:NOW.getMonth(),date:null,slot:null};
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DAYS_LONG=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+// BUSY is now fetched live from Google Calendar — no hardcoded slots
+
+function tz(){try{return Intl.DateTimeFormat().resolvedOptions().timeZone;}catch(e){return'UTC';}}
+function tzLabel(){
+  const off=-new Date().getTimezoneOffset();
+  const h=String(Math.floor(Math.abs(off)/60)).padStart(2,'0');
+  const m=String(Math.abs(off)%60).padStart(2,'0');
+  return`${tz()} (GMT${off>=0?'+':'-'}${h}:${m})`;
+}
+function fmtDate(d){return`${DAYS_LONG[d.getDay()]}, ${MONTHS[d.getMonth()]} ${d.getDate()}`;}
+async function fetchSlots(date){
+  const y=date.getFullYear(),mo=String(date.getMonth()+1).padStart(2,'0'),d=String(date.getDate()).padStart(2,'0');
+  const dateStr=`${y}-${mo}-${d}`;
+  try{
+    const res=await fetch(`/api/busy-slots?date=${dateStr}`);
+    if(!res.ok)throw new Error('API error');
+    const data=await res.json();
+    return data.slots||[];
+  }catch(e){
+    console.error('fetchSlots failed',e);
+    return[];
+  }
+}
+function add30(slot){
+  const[tp,pd]=slot.split(' ');let[h,m]=tp.split(':').map(Number);
+  if(pd==='PM'&&h!==12)h+=12;if(pd==='AM'&&h===12)h=0;
+  const tot=h*60+m+30;let nh=Math.floor(tot/60)%24,nm=tot%60;
+  const np=nh<12?'AM':'PM';if(nh>12)nh-=12;if(nh===0)nh=12;
+  return`${nh}:${String(nm).padStart(2,'0')} ${np}`;
+}
+
+function renderCal(){
+  const{year:y,month:mo}=S;
+  document.getElementById('month-label').textContent=`${MONTHS[mo]} ${y}`;
+  document.getElementById('tz-display').textContent=tzLabel();
+  const first=new Date(y,mo,1).getDay();
+  const days=new Date(y,mo+1,0).getDate();
+  const grid=document.getElementById('cal-grid');grid.innerHTML='';
+  const prevBtn=document.getElementById('prev-btn');
+  const cur=new Date(y,mo,1);cur.setHours(0,0,0,0);
+  const nowFirst=new Date(NOW.getFullYear(),NOW.getMonth(),1);
+  prevBtn.disabled=cur<=nowFirst;
+  for(let i=0;i<first;i++){const el=document.createElement('div');el.className='day';grid.appendChild(el);}
+  for(let d=1;d<=days;d++){
+    const date=new Date(y,mo,d);date.setHours(0,0,0,0);
+    const el=document.createElement('div');el.textContent=d;
+    const isToday=date.getTime()===NOW.getTime();
+    const isPast=date<NOW;
+    const isWknd=date.getDay()===0||date.getDay()===6;
+    const isSel=S.date&&date.getTime()===S.date.getTime();
+    if(isPast||isWknd){
+      el.className='day'+(isToday?' today-mark':'');
+      el.style.color='var(--border-2)';
+    }else{
+      el.className='day avail'+(isToday?' today-mark':'')+(isSel?' sel':'');
+      el.title=fmtDate(date);el.onclick=()=>pickDate(date);
+    }
+    grid.appendChild(el);
+  }
+}
+
+function changeMonth(d){
+  S.month+=d;
+  if(S.month<0){S.month=11;S.year--;}
+  if(S.month>11){S.month=0;S.year++;}
+  renderCal();
+}
+
+function pickDate(date){
+  S.date=date;S.slot=null;
+  renderCal();renderSlots();goTo('slots');
+}
+
+async function renderSlots(){
+  const d=S.date;
+  document.getElementById('slots-date-title').textContent=fmtDate(d);
+  document.getElementById('slots-tz-inline').textContent=tz();
+  const grid=document.getElementById('slots-grid');
+  // Show loading state
+  grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:32px 0;color:var(--ink-4);font-size:13px;">Loading available times…</div>';
+  document.getElementById('picked-info').style.visibility='hidden';
+  document.getElementById('next-btn-slot').classList.remove('show');
+
+  const availableSlots=await fetchSlots(d);
+  grid.innerHTML='';
+
+  if(availableSlots.length===0){
+    grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:32px 0;color:var(--ink-4);font-size:13px;">No available slots on this day.<br>Please pick another date.</div>';
+    return;
+  }
+
+  availableSlots.forEach((s,i)=>{
+    const btn=document.createElement('button');
+    btn.className='slot-btn'+(S.slot===s?' picked':'');
+    btn.textContent=s;
+    btn.style.animationDelay=`${i*20}ms`;
+    btn.title=`${s} – ${add30(s)}`;
+    btn.onclick=()=>{
+      S.slot=s;
+      document.querySelectorAll('.slot-btn').forEach(b=>b.classList.remove('picked'));
+      btn.classList.add('picked');
+      document.getElementById('picked-info').style.visibility='visible';
+      document.getElementById('picked-time-label').textContent=s;
+      document.getElementById('next-btn-slot').classList.add('show');
+    };
+    grid.appendChild(btn);
+  });
+  if(S.slot&&availableSlots.includes(S.slot)){
+    document.getElementById('picked-info').style.visibility='visible';
+    document.getElementById('picked-time-label').textContent=S.slot;
+    document.getElementById('next-btn-slot').classList.add('show');
+  }
+}
+
+function goTo(name){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  const el=document.getElementById(`view-${name}`);
+  if(el)el.classList.add('active');
+  const steps={cal:1,slots:2,form:3};
+  const cur=steps[name]||1;
+  for(let i=1;i<=3;i++){
+    const s=document.getElementById(`step-${i}`);
+    s.className='step'+(i<cur?' done':i===cur?' active':'');
+  }
+  for(let i=1;i<=2;i++){
+    document.getElementById(`line-${i}`).className='step-line'+(i<cur?' done':'');
+  }
+  if(name==='form'){
+    const dateStr=fmtDate(S.date);
+    document.getElementById('preview-when').textContent=`${dateStr} · ${S.slot} – ${add30(S.slot)}`;
+  }
+}
+
+function showErr(msg){
+  const el=document.getElementById('form-err');
+  document.getElementById('form-err-msg').textContent=msg;
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),4000);
+}
+
+async function submitBooking(){
+  const name=document.getElementById('inp-name').value.trim();
+  const email=document.getElementById('inp-email').value.trim();
+  const phone=document.getElementById('inp-phone').value.trim();
+  const company=document.getElementById('inp-company').value.trim();
+  const notes=document.getElementById('inp-notes').value.trim();
+  if(!name){document.getElementById('inp-name').classList.add('err');return showErr('Please enter your full name.');}
+  document.getElementById('inp-name').classList.remove('err');
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){document.getElementById('inp-email').classList.add('err');return showErr('Please enter a valid email address.');}
+  document.getElementById('inp-email').classList.remove('err');
+
+  const btn=document.getElementById('submit-btn');
+  const txt=document.getElementById('submit-txt');
+  const spin=document.getElementById('submit-spinner');
+  const arr=document.getElementById('submit-arrow');
+  btn.disabled=true;txt.textContent='Confirming…';spin.style.display='block';arr.style.display='none';
+
+  const y=S.date.getFullYear(),mo=String(S.date.getMonth()+1).padStart(2,'0'),d=String(S.date.getDate()).padStart(2,'0');
+  const dateStr=`${y}-${mo}-${d}`;
+
+  try{
+    const res=await fetch('/api/book',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({date:dateStr,slot:S.slot,name,email,phone,company,notes})
+    });
+    const data=await res.json();
+    if(!res.ok)throw new Error(data.error||'Booking failed');
+    btn.disabled=false;txt.textContent='Confirm Booking';spin.style.display='none';arr.style.display='block';
+    showSuccess(name,email,data.meetLink);
+  }catch(e){
+    btn.disabled=false;txt.textContent='Confirm Booking';spin.style.display='none';arr.style.display='block';
+    showErr(e.message||'Something went wrong. Please try again.');
+  }
+}
+
+function showSuccess(name,email,meetLink){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('progress-bar').style.display='none';
+  const d=S.date,s=S.slot;
+  const dateStr=fmtDate(d),endStr=add30(s);
+  const card=document.getElementById('summary-card');
+  const rows=[
+    {icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',label:'Guest',val:name},
+    {icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',label:'Email',val:email},
+    {icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',label:'Date',val:dateStr},
+    {icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>',label:'Time',val:`${s} – ${endStr} · ${tz()}`},
+    {icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>',label:'Location',val:meetLink?`<a href="${meetLink}" target="_blank" style="color:var(--accent);text-decoration:none;">Join Google Meet ↗</a>`:'Google Meet (link in email)'},
+  ];
+  card.innerHTML=rows.map(r=>`<div class="sum-row"><div class="sum-icon">${r.icon}</div><div><div class="sum-label">${r.label}</div><div class="sum-val">${r.val}</div></div></div>`).join('');
+  window._bk={name,email,date:d,slot:s,endStr,dateStr,meetLink};
+  document.getElementById('view-success').classList.add('active');
+}
+
+function addToCal(type){
+  const b=window._bk;if(!b)return;
+  const p=n=>String(n).padStart(2,'0');
+  const d=b.date;const[tp,pd]=b.slot.split(' ');let[h,m]=tp.split(':').map(Number);
+  if(pd==='PM'&&h!==12)h+=12;if(pd==='AM'&&h===12)h=0;
+  const st=`${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}T${p(h)}${p(m)}00`;
+  const eh=Math.floor((h*60+m+30)/60)%24,em=(m+30)%60;
+  const et=`${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}T${p(eh)}${p(em)}00`;
+  if(type==='google'){
+    window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=30+Minute+Meeting+with+Alex+Johnson&dates=${st}/${et}&details=Google+Meet+link+sent+via+email&location=Google+Meet`,'_blank');
+  }else{
+    const ic=`BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Cal//EN\r\nBEGIN:VEVENT\r\nDTSTART:${st}\r\nDTEND:${et}\r\nSUMMARY:30 Minute Meeting – Alex Johnson\r\nDESCRIPTION:Google Meet link will be sent via email.\r\nLOCATION:Google Meet\r\nEND:VEVENT\r\nEND:VCALENDAR`;
+    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ic],{type:'text/calendar'}));a.download='meeting-alex-johnson.ics';a.click();
+  }
+}
+
+function resetAll(){
+  S.date=null;S.slot=null;S.year=NOW.getFullYear();S.month=NOW.getMonth();
+  ['inp-name','inp-email','inp-phone','inp-company'].forEach(id=>{
+    const el=document.getElementById(id);el.value='';el.className='finput';
+  });
+  document.getElementById('inp-notes').value='';
+  document.getElementById('view-success').classList.remove('active');
+  document.getElementById('progress-bar').style.display='flex';
+  renderCal();goTo('cal');
+}
+
+renderCal();
+</script>
+</body>
+</html>
