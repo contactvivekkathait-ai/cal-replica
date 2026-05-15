@@ -48,22 +48,11 @@ export default async function handler(req, res) {
   try {
     const event = await calendar.events.insert({
       calendarId: process.env.GOOGLE_CALENDAR_ID,
-      sendUpdates: "all", // sends email invites automatically
       requestBody: {
         summary: `30 Min Meeting – ${name}`,
         description,
         start: { dateTime: startISO, timeZone: "UTC" },
         end: { dateTime: endISO, timeZone: "UTC" },
-        attendees: [
-          { email: hostEmail, displayName: hostName, organizer: true },
-          { email, displayName: name },
-        ],
-        conferenceData: {
-          createRequest: {
-            requestId: `booking-${Date.now()}`,
-            conferenceSolutionKey: { type: "hangoutsMeet" },
-          },
-        },
         reminders: {
           useDefault: false,
           overrides: [
@@ -72,7 +61,6 @@ export default async function handler(req, res) {
           ],
         },
       },
-      conferenceDataVersion: 1,
     });
 
     const meetLink =
