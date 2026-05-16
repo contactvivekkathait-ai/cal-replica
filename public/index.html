@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Book a Meeting · Alex Johnson</title>
+<title>Book a Meeting · Vivek Kathait</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
@@ -32,7 +32,7 @@
   --transition:.18s cubic-bezier(.4,0,.2,1);
 }
 
-html,body{height:100%}
+html,body{min-height:100%}
 
 body{
   font-family:'Outfit',system-ui,sans-serif;
@@ -42,7 +42,7 @@ body{
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:center;
+  justify-content:flex-start;
   padding:24px;
 }
 
@@ -55,7 +55,7 @@ body::before{
   pointer-events:none;z-index:0;
 }
 
-.shell{position:relative;z-index:1;width:100%;max-width:920px;}
+.shell{position:relative;z-index:1;width:100%;max-width:920px;margin:auto;}
 
 /* PROGRESS */
 .progress-bar{
@@ -122,7 +122,7 @@ body::before{
   display:flex;align-items:center;justify-content:center;
   font-size:22px;font-weight:700;color:#fff;letter-spacing:-1px;
   box-shadow:0 4px 16px rgba(26,107,74,.3);
-  font-family:'Instrument Serif',serif;
+  font-family:'DM Sans',sans-serif;
 }
 .online-dot{
   position:absolute;bottom:2px;right:2px;
@@ -130,7 +130,7 @@ body::before{
   background:#22c55e;border:2.5px solid #ece8e3;
 }
 .sidebar-host{font-size:12px;font-weight:500;color:var(--ink-3);margin-bottom:4px;letter-spacing:.02em;text-transform:uppercase;}
-.sidebar-title{font-family:'Instrument Serif',serif;font-size:24px;line-height:1.2;color:var(--ink);margin-bottom:20px;}
+.sidebar-title{font-family:'DM Sans',sans-serif;font-size:20px;line-height:1.2;color:var(--ink);margin-bottom:20px;font-weight:700;white-space:nowrap;}
 .sidebar-chips{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
 .chip{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--ink-2);font-weight:400;}
 .chip-icon{
@@ -153,7 +153,10 @@ body::before{
 }
 
 /* MAIN */
-.main{flex:1;padding:36px 32px;display:flex;flex-direction:column;min-height:540px;}
+.main{flex:1;padding:36px 32px;display:flex;flex-direction:column;}
+
+/* Fix selects to look like finput */
+select.finput{appearance:none;-webkit-appearance:none;cursor:pointer;}
 
 /* VIEWS */
 .view{display:none;flex-direction:column;flex:1;animation:fadeSlide .25s ease both;}
@@ -165,7 +168,7 @@ body::before{
 
 /* CALENDAR */
 .cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
-.cal-month{font-family:'Instrument Serif',serif;font-size:22px;color:var(--ink);}
+.cal-month{font-family:'DM Sans',sans-serif;font-size:22px;color:var(--ink);}
 .nav-group{display:flex;gap:6px;}
 .nav-btn{
   width:34px;height:34px;border-radius:var(--r-sm);
@@ -177,7 +180,7 @@ body::before{
 .nav-btn:disabled{opacity:.3;cursor:not-allowed;}
 .weekday-row{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:8px;}
 .wd{text-align:center;font-size:11px;font-weight:700;color:var(--ink-4);letter-spacing:.08em;text-transform:uppercase;padding:6px 0;}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
 .day{
   aspect-ratio:1;display:flex;align-items:center;justify-content:center;
   border-radius:var(--r-sm);font-size:13.5px;font-weight:500;
@@ -217,7 +220,7 @@ body::before{
   color:var(--ink-2);transition:all var(--transition);box-shadow:var(--shadow-xs);flex-shrink:0;
 }
 .back-btn:hover{border-color:var(--ink-2);background:var(--paper);}
-.panel-title{font-family:'Instrument Serif',serif;font-size:20px;color:var(--ink);}
+.panel-title{font-family:'DM Sans',sans-serif;font-size:20px;color:var(--ink);}
 .panel-sub{font-size:12.5px;color:var(--ink-4);margin-top:2px;}
 .slots-hint{font-size:12.5px;color:var(--ink-3);margin-bottom:16px;margin-left:46px;}
 .slots-wrap{
@@ -328,7 +331,7 @@ body::before{
 @keyframes spin-slow{to{transform:rotate(360deg)}}
 .confetti-inner{width:68px;height:68px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;}
 .confetti-inner svg{width:32px;height:32px;color:var(--accent);}
-.success-title{font-family:'Instrument Serif',serif;font-size:28px;color:var(--ink);}
+.success-title{font-family:'DM Sans',sans-serif;font-size:28px;color:var(--ink);}
 .success-sub{font-size:14px;color:var(--ink-3);line-height:1.7;max-width:380px;margin-top:-10px;}
 .summary-card{
   background:var(--paper);border:1.5px solid var(--border);border-radius:var(--r);
@@ -356,6 +359,21 @@ body::before{
 }
 .reset-link:hover{color:var(--ink-2);}
 
+/* GUESTS */
+.guests-section{
+  border:1.5px solid var(--border);border-radius:var(--r);
+  overflow:hidden;margin-bottom:16px;
+}
+.guests-toggle{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 14px;cursor:pointer;background:var(--paper);
+  transition:background var(--transition);user-select:none;
+}
+.guests-toggle:hover{background:var(--accent-light);}
+.guests-body{
+  border-top:1.5px solid var(--border);padding:14px;background:var(--white);
+}
+
 /* RESPONSIVE */
 @media(max-width:700px){
   body{padding:0;align-items:flex-start;}
@@ -374,21 +392,21 @@ body::before{
 <div class="shell">
 
   <div class="progress-bar" id="progress-bar">
-    <div class="step active" id="step-1"><div class="step-dot">1</div><span>Pick a date</span></div>
+    <div class="step active" id="step-1"><div class="step-dot">1</div><span>Your details</span></div>
     <div class="step-line" id="line-1"></div>
-    <div class="step" id="step-2"><div class="step-dot">2</div><span>Choose time</span></div>
+    <div class="step" id="step-2"><div class="step-dot">2</div><span>Pick a date</span></div>
     <div class="step-line" id="line-2"></div>
-    <div class="step" id="step-3"><div class="step-dot">3</div><span>Your details</span></div>
+    <div class="step" id="step-3"><div class="step-dot">3</div><span>Choose time</span></div>
   </div>
 
   <div class="card">
     <!-- SIDEBAR -->
     <div class="sidebar">
       <div class="avatar-wrap">
-        <div class="avatar">AJ</div>
+        <div class="avatar">VK</div>
         <div class="online-dot"></div>
       </div>
-      <div class="sidebar-host">Alex Johnson</div>
+      <div class="sidebar-host">Vivek Kathait</div>
       <div class="sidebar-title">30 Minute Meeting</div>
       <div class="sidebar-chips">
         <div class="chip">
@@ -418,31 +436,170 @@ body::before{
     <!-- MAIN -->
     <div class="main">
 
-      <!-- VIEW: CALENDAR -->
-      <div class="view active" id="view-cal">
-        <div class="cal-header">
-          <div class="cal-month" id="month-label"></div>
-          <div class="nav-group">
-            <button class="nav-btn" id="prev-btn" onclick="changeMonth(-1)" title="Previous month">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-            </button>
-            <button class="nav-btn" id="next-btn" onclick="changeMonth(1)" title="Next month">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-            </button>
+      <!-- VIEW: FORM (Step 1) -->
+      <div class="view active" id="view-form">
+        <div style="margin-bottom:16px;">
+          <div class="panel-title" style="font-family:'DM Sans',sans-serif;font-size:20px;color:var(--ink);">Your details</div>
+          <div class="panel-sub" style="font-size:12.5px;color:var(--ink-4);margin-top:2px;">Tell us a bit about yourself to get started</div>
+        </div>
+        <div class="form-err" id="form-err">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          <span id="form-err-msg"></span>
+        </div>
+
+        <!-- Name (full width) -->
+        <div class="fgroup" style="margin-bottom:14px;">
+          <label class="flabel">Full Name <em>*</em></label>
+          <input class="finput" id="inp-name" type="text" placeholder="Jane Smith" autocomplete="name">
+        </div>
+
+        <!-- Email + WhatsApp -->
+        <div class="form-grid" style="margin-bottom:14px;">
+          <div class="fgroup">
+            <label class="flabel">Email <em>*</em></label>
+            <input class="finput" id="inp-email" type="email" placeholder="jane@company.com" autocomplete="email">
+          </div>
+          <div class="fgroup">
+            <label class="flabel">WhatsApp Number <em>*</em></label>
+            <input class="finput" id="inp-phone" type="tel" placeholder="+1 555 000 0000" autocomplete="tel" oninput="this.value=this.value.replace(/[^\d+\-\s().#]/g,'')">
           </div>
         </div>
-        <div class="weekday-row">
+
+        <!-- Company (full width) -->
+        <div class="fgroup" style="margin-bottom:14px;">
+          <label class="flabel">Company Name <em>*</em></label>
+          <input class="finput" id="inp-company" type="text" placeholder="Acme Corp" autocomplete="organization">
+        </div>
+
+        <!-- Industry -->
+        <div class="fgroup" style="margin-bottom:14px;">
+          <label class="flabel">Industry <em>*</em></label>
+          <select class="finput" id="inp-industry" onchange="handleIndustry(this)" style="cursor:pointer;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23aaa' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;">
+            <option value="" disabled selected>Select your industry</option>
+            <option value="ecommerce">E-commerce &amp; Retail</option>
+            <option value="healthcare">Healthcare</option>
+            <option value="realestate">Real Estate</option>
+            <option value="finance">Finance &amp; Insurance</option>
+            <option value="education">Education</option>
+            <option value="manufacturing">Manufacturing</option>
+            <option value="marketing">Marketing &amp; Agencies</option>
+            <option value="logistics">Logistics &amp; Supply Chain</option>
+            <option value="saas">SaaS / Tech</option>
+            <option value="other">Other</option>
+          </select>
+          <div id="inp-industry-other-wrap" style="display:none;margin-top:8px;">
+            <input class="finput" id="inp-industry-other" type="text" placeholder="Please specify your industry">
+          </div>
+        </div>
+
+        <!-- Team Size + Annual Revenue -->
+        <div class="form-grid" style="margin-bottom:14px;">
+          <div class="fgroup">
+            <label class="flabel">Team Size <em>*</em></label>
+            <select class="finput" id="inp-teamsize" style="cursor:pointer;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23aaa' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;">
+              <option value="" disabled selected>Select range</option>
+              <option>Just me</option>
+              <option>1–10 employees</option>
+              <option>11–50 employees</option>
+              <option>51–200 employees</option>
+              <option>201–500 employees</option>
+              <option>500+ employees</option>
+            </select>
+          </div>
+          <div class="fgroup">
+            <label class="flabel">Annual Revenue <em>*</em></label>
+            <select class="finput" id="inp-revenue" style="cursor:pointer;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23aaa' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;">
+              <option value="" disabled selected>Select range</option>
+              <option>Under $50K</option>
+              <option>$50K – $200K</option>
+              <option>$200K – $500K</option>
+              <option>$1M – $5M</option>
+              <option>$5M – $20M</option>
+              <option>$20M+</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Biggest Challenge -->
+        <div class="fgroup" style="margin-bottom:14px;">
+          <label class="flabel">Biggest Challenge <span style="font-weight:400;font-size:.85em;color:var(--ink-4);text-transform:none;">(optional)</span></label>
+          <textarea class="ftextarea" id="inp-notes" placeholder="e.g. We spend too much time manually following up with leads…"></textarea>
+        </div>
+
+        <!-- GUESTS SECTION -->
+        <div class="guests-section">
+          <div class="guests-toggle" id="guests-toggle" onclick="toggleGuests()">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="chip-icon" style="width:26px;height:26px;border-radius:7px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;color:var(--accent)"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <span style="font-size:13px;font-weight:500;color:var(--ink-2);">Add guests</span>
+            </div>
+            <svg id="guests-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--ink-4);transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="guests-body" id="guests-body" style="display:none;">
+            <p style="font-size:12.5px;color:var(--ink-3);margin-bottom:12px;line-height:1.5;">Add up to 2 guests who should join this meeting. They'll each receive a calendar invite.</p>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div>
+                <label class="flabel" style="margin-bottom:6px;">Guest 1 email</label>
+                <input class="finput" id="inp-guest-email-1" type="email" placeholder="e.g. colleague@company.com" style="width:100%;"
+                  onkeydown="if(event.key==='Enter'){event.preventDefault();addGuestByIndex(1);}"
+                  onblur="addGuestByIndex(1)"
+                  oninput="this.classList.remove('err');document.getElementById('guest-email-err-1').style.display='none';">
+                <div id="guest-email-err-1" style="display:none;font-size:12px;color:var(--warn);margin-top:5px;">Please enter a valid email address.</div>
+              </div>
+              <div>
+                <label class="flabel" style="margin-bottom:6px;">Guest 2 email</label>
+                <input class="finput" id="inp-guest-email-2" type="email" placeholder="e.g. colleague@company.com" style="width:100%;"
+                  onkeydown="if(event.key==='Enter'){event.preventDefault();addGuestByIndex(2);}"
+                  onblur="addGuestByIndex(2)"
+                  oninput="this.classList.remove('err');document.getElementById('guest-email-err-2').style.display='none';">
+                <div id="guest-email-err-2" style="display:none;font-size:12px;color:var(--warn);margin-top:5px;">Please enter a valid email address.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-footer">
+          <div></div>
+          <button class="submit-btn" onclick="validateFormAndNext()">
+            Next: Pick a date
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- VIEW: CALENDAR (Step 2) -->
+      <div class="view" id="view-cal">
+        <div class="cal-header" style="margin-bottom:14px;">
+          <div>
+            <div class="cal-month" id="month-label"></div>
+            <div class="panel-sub" style="font-size:12px;color:var(--ink-4);margin-top:1px;">Pick an available weekday</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <button class="ghost-btn" style="height:34px;padding:0 12px;font-size:12px;" onclick="goTo('form')">← Back</button>
+            <div class="nav-group">
+              <button class="nav-btn" id="prev-btn" onclick="changeMonth(-1)" title="Previous month">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button class="nav-btn" id="next-btn" onclick="changeMonth(1)" title="Next month">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="weekday-row" style="margin-bottom:4px;">
           <div class="wd">Sun</div><div class="wd">Mon</div><div class="wd">Tue</div>
           <div class="wd">Wed</div><div class="wd">Thu</div><div class="wd">Fri</div><div class="wd">Sat</div>
         </div>
         <div class="cal-grid" id="cal-grid"></div>
-        <div class="tz-row">
+        <div class="tz-row" style="margin-top:12px;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           <span id="tz-display">Detecting timezone…</span>
         </div>
       </div>
 
-      <!-- VIEW: SLOTS -->
+      <!-- VIEW: SLOTS (Step 3) -->
       <div class="view" id="view-slots">
         <div class="panel-header">
           <button class="back-btn" onclick="goTo('cal')" title="Back to calendar">
@@ -461,65 +618,9 @@ body::before{
             <span class="picked-time" id="picked-time-label"></span>
             <span style="color:var(--ink-4)">selected</span>
           </div>
-          <button class="next-btn" id="next-btn-slot" onclick="goTo('form')">
-            Continue
+          <button class="next-btn" id="next-btn-slot" onclick="submitBooking()">
+            Confirm Booking
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- VIEW: FORM -->
-      <div class="view" id="view-form">
-        <div class="panel-header" style="margin-bottom:16px;">
-          <button class="back-btn" onclick="goTo('slots')" title="Back to time slots">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-          </button>
-          <div>
-            <div class="panel-title">Your details</div>
-            <div class="panel-sub">Fill in your info to confirm</div>
-          </div>
-        </div>
-        <div class="booking-preview">
-          <div class="preview-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          </div>
-          <div>
-            <div class="preview-event">30 Minute Meeting · Google Meet</div>
-            <div class="preview-when" id="preview-when"></div>
-          </div>
-        </div>
-        <div class="form-err" id="form-err">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-          <span id="form-err-msg"></span>
-        </div>
-        <div class="form-grid">
-          <div class="fgroup">
-            <label class="flabel">Name <em>*</em></label>
-            <input class="finput" id="inp-name" type="text" placeholder="Jane Doe" autocomplete="name">
-          </div>
-          <div class="fgroup">
-            <label class="flabel">Email <em>*</em></label>
-            <input class="finput" id="inp-email" type="email" placeholder="jane@company.com" autocomplete="email">
-          </div>
-          <div class="fgroup">
-            <label class="flabel">Phone</label>
-            <input class="finput" id="inp-phone" type="tel" placeholder="+1 (555) 000-0000" autocomplete="tel">
-          </div>
-          <div class="fgroup">
-            <label class="flabel">Company</label>
-            <input class="finput" id="inp-company" type="text" placeholder="Acme Inc." autocomplete="organization">
-          </div>
-          <div class="fgroup form-full">
-            <label class="flabel">What would you like to discuss?</label>
-            <textarea class="ftextarea" id="inp-notes" placeholder="Share a brief agenda or any questions you'd like to cover…"></textarea>
-          </div>
-        </div>
-        <div class="form-footer">
-          <button class="ghost-btn" onclick="goTo('slots')">← Back</button>
-          <button class="submit-btn" id="submit-btn" onclick="submitBooking()">
-            <span id="submit-txt">Confirm Booking</span>
-            <div class="spinner" id="submit-spinner"></div>
-            <svg id="submit-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
           </button>
         </div>
       </div>
@@ -554,10 +655,9 @@ body::before{
 
 <script>
 const NOW=new Date();NOW.setHours(0,0,0,0);
-const S={year:NOW.getFullYear(),month:NOW.getMonth(),date:null,slot:null};
+const S={year:NOW.getFullYear(),month:NOW.getMonth(),date:null,slot:null,guests:[]};
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DAYS_LONG=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-// BUSY is now fetched live from Google Calendar — no hardcoded slots
 
 function tz(){try{return Intl.DateTimeFormat().resolvedOptions().timeZone;}catch(e){return'UTC';}}
 function tzLabel(){
@@ -567,6 +667,7 @@ function tzLabel(){
   return`${tz()} (GMT${off>=0?'+':'-'}${h}:${m})`;
 }
 function fmtDate(d){return`${DAYS_LONG[d.getDay()]}, ${MONTHS[d.getMonth()]} ${d.getDate()}`;}
+
 async function fetchSlots(date){
   const y=date.getFullYear(),mo=String(date.getMonth()+1).padStart(2,'0'),d=String(date.getDate()).padStart(2,'0');
   const dateStr=`${y}-${mo}-${d}`;
@@ -580,6 +681,7 @@ async function fetchSlots(date){
     return[];
   }
 }
+
 function add30(slot){
   const[tp,pd]=slot.split(' ');let[h,m]=tp.split(':').map(Number);
   if(pd==='PM'&&h!==12)h+=12;if(pd==='AM'&&h===12)h=0;
@@ -588,6 +690,105 @@ function add30(slot){
   return`${nh}:${String(nm).padStart(2,'0')} ${np}`;
 }
 
+/* ---- GUESTS ---- */
+function toggleGuests(){
+  const body=document.getElementById('guests-body');
+  const chevron=document.getElementById('guests-chevron');
+  const open=body.style.display==='none'||body.style.display==='';
+  body.style.display=open?'block':'none';
+  chevron.style.transform=open?'rotate(180deg)':'rotate(0deg)';
+  if(open)document.getElementById('inp-guest-email-1').focus();
+}
+
+function addGuestByIndex(n){
+  const inp=document.getElementById('inp-guest-email-'+n);
+  const errEl=document.getElementById('guest-email-err-'+n);
+  const email=inp.value.trim();
+  if(!email){inp.classList.remove('err');errEl.style.display='none';return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    inp.classList.add('err');errEl.style.display='block';return;
+  }
+  inp.classList.remove('err');errEl.style.display='none';
+}
+function addGuest(){addGuestByIndex(1);}
+
+
+function renderGuests(){
+  // Collect valid emails from both fixed fields into S.guests
+  S.guests=[];
+  [1,2].forEach(n=>{
+    const inp=document.getElementById('inp-guest-email-'+n);
+    if(!inp)return;
+    const email=inp.value.trim();
+    if(email&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)&&!S.guests.includes(email))S.guests.push(email);
+  });
+}
+
+/* ---- INDUSTRY TOGGLE ---- */
+function handleIndustry(sel){
+  const wrap=document.getElementById('inp-industry-other-wrap');
+  wrap.style.display=sel.value==='other'?'block':'none';
+  if(sel.value!=='other')document.getElementById('inp-industry-other').classList.remove('err');
+}
+
+/* ---- FORM VALIDATION -> go to calendar ---- */
+function validateFormAndNext(){
+  let ok=true;
+  const name=document.getElementById('inp-name');
+  const email=document.getElementById('inp-email');
+  const phone=document.getElementById('inp-phone');
+  const company=document.getElementById('inp-company');
+  const industry=document.getElementById('inp-industry');
+  const teamsize=document.getElementById('inp-teamsize');
+  const revenue=document.getElementById('inp-revenue');
+
+  // clear errors
+  [name,email,phone,company,industry,teamsize,revenue].forEach(el=>el.classList.remove('err'));
+
+  if(!name.value.trim()){name.classList.add('err');ok=false;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())){email.classList.add('err');ok=false;}
+  if(!phone.value.trim()){phone.classList.add('err');ok=false;}
+  if(!company.value.trim()){company.classList.add('err');ok=false;}
+  if(!industry.value){industry.classList.add('err');ok=false;}
+  if(industry.value==='other'){
+    const other=document.getElementById('inp-industry-other');
+    if(!other.value.trim()){other.classList.add('err');ok=false;}
+    else other.classList.remove('err');
+  }
+  if(!teamsize.value){teamsize.classList.add('err');ok=false;}
+  if(!revenue.value){revenue.classList.add('err');ok=false;}
+
+  if(!ok){
+    showErr('Please fill in all required fields.');
+    document.getElementById('view-form').scrollIntoView({behavior:'smooth',block:'start'});
+    return;
+  }
+
+  // Google Sheets sync (fire & forget)
+  const industryEl=document.getElementById('inp-industry');
+  const industryVal=industryEl.value==='other'
+    ?(document.getElementById('inp-industry-other').value.trim()||'Other')
+    :industryEl.options[industryEl.selectedIndex].text;
+
+  fetch('https://script.google.com/macros/s/AKfycbyU3n62htUlQDMQ04I00h1Ip9l7_moPBB4AUzG5zrylVw98Cf1rvmGe4Z7dXI92u3g/exec',{
+    method:'POST',mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      fullName:name.value.trim(),
+      email:email.value.trim(),
+      phone:phone.value.trim(),
+      company:company.value.trim(),
+      industry:industryVal,
+      teamSize:document.getElementById('inp-teamsize').value,
+      revenue:document.getElementById('inp-revenue').value,
+      challenge:document.getElementById('inp-notes').value.trim()
+    })
+  }).catch(err=>console.warn('Sheet sync error:',err));
+
+  goTo('cal');
+}
+
+/* ---- CALENDAR ---- */
 function renderCal(){
   const{year:y,month:mo}=S;
   document.getElementById('month-label').textContent=`${MONTHS[mo]} ${y}`;
@@ -630,12 +831,12 @@ function pickDate(date){
   renderCal();renderSlots();goTo('slots');
 }
 
+/* ---- SLOTS ---- */
 async function renderSlots(){
   const d=S.date;
   document.getElementById('slots-date-title').textContent=fmtDate(d);
   document.getElementById('slots-tz-inline').textContent=tz();
   const grid=document.getElementById('slots-grid');
-  // Show loading state
   grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:32px 0;color:var(--ink-4);font-size:13px;">Loading available times…</div>';
   document.getElementById('picked-info').style.visibility='hidden';
   document.getElementById('next-btn-slot').classList.remove('show');
@@ -671,11 +872,12 @@ async function renderSlots(){
   }
 }
 
+/* ---- NAVIGATION ---- */
 function goTo(name){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   const el=document.getElementById(`view-${name}`);
   if(el)el.classList.add('active');
-  const steps={cal:1,slots:2,form:3};
+  const steps={form:1,cal:2,slots:3};
   const cur=steps[name]||1;
   for(let i=1;i<=3;i++){
     const s=document.getElementById(`step-${i}`);
@@ -684,10 +886,7 @@ function goTo(name){
   for(let i=1;i<=2;i++){
     document.getElementById(`line-${i}`).className='step-line'+(i<cur?' done':'');
   }
-  if(name==='form'){
-    const dateStr=fmtDate(S.date);
-    document.getElementById('preview-when').textContent=`${dateStr} · ${S.slot} – ${add30(S.slot)}`;
-  }
+  if(name==='cal')renderCal();
 }
 
 function showErr(msg){
@@ -697,22 +896,17 @@ function showErr(msg){
   setTimeout(()=>el.classList.remove('show'),4000);
 }
 
-async function submitBooking(){
+/* ---- SUBMIT ---- */
+async function submitBooking(){renderGuests();
   const name=document.getElementById('inp-name').value.trim();
   const email=document.getElementById('inp-email').value.trim();
   const phone=document.getElementById('inp-phone').value.trim();
   const company=document.getElementById('inp-company').value.trim();
   const notes=document.getElementById('inp-notes').value.trim();
-  if(!name){document.getElementById('inp-name').classList.add('err');return showErr('Please enter your full name.');}
-  document.getElementById('inp-name').classList.remove('err');
-  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){document.getElementById('inp-email').classList.add('err');return showErr('Please enter a valid email address.');}
-  document.getElementById('inp-email').classList.remove('err');
 
-  const btn=document.getElementById('submit-btn');
-  const txt=document.getElementById('submit-txt');
-  const spin=document.getElementById('submit-spinner');
-  const arr=document.getElementById('submit-arrow');
-  btn.disabled=true;txt.textContent='Confirming…';spin.style.display='block';arr.style.display='none';
+  const btn=document.getElementById('next-btn-slot');
+  const origTxt=btn.innerHTML;
+  btn.disabled=true;btn.innerHTML='<div class="spinner" style="display:block;margin:0 auto;"></div>';
 
   const y=S.date.getFullYear(),mo=String(S.date.getMonth()+1).padStart(2,'0'),d=String(S.date.getDate()).padStart(2,'0');
   const dateStr=`${y}-${mo}-${d}`;
@@ -721,14 +915,14 @@ async function submitBooking(){
     const res=await fetch('/api/book',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({date:dateStr,slot:S.slot,name,email,phone,company,notes})
+      body:JSON.stringify({date:dateStr,slot:S.slot,name,email,phone,company,notes,guests:S.guests})
     });
     const data=await res.json();
     if(!res.ok)throw new Error(data.error||'Booking failed');
-    btn.disabled=false;txt.textContent='Confirm Booking';spin.style.display='none';arr.style.display='block';
+    btn.disabled=false;btn.innerHTML=origTxt;
     showSuccess(name,email,data.meetLink);
   }catch(e){
-    btn.disabled=false;txt.textContent='Confirm Booking';spin.style.display='none';arr.style.display='block';
+    btn.disabled=false;btn.innerHTML=origTxt;btn.classList.add('show');
     showErr(e.message||'Something went wrong. Please try again.');
   }
 }
@@ -746,6 +940,9 @@ function showSuccess(name,email,meetLink){
     {icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>',label:'Time',val:`${s} – ${endStr} · ${tz()}`},
     {icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>',label:'Location',val:meetLink?`<a href="${meetLink}" target="_blank" style="color:var(--accent);text-decoration:none;">Join Google Meet ↗</a>`:'Google Meet (link in email)'},
   ];
+  if(S.guests.length>0){
+    rows.push({icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',label:'Also invited',val:S.guests.join(', ')});
+  }
   card.innerHTML=rows.map(r=>`<div class="sum-row"><div class="sum-icon">${r.icon}</div><div><div class="sum-label">${r.label}</div><div class="sum-val">${r.val}</div></div></div>`).join('');
   window._bk={name,email,date:d,slot:s,endStr,dateStr,meetLink};
   document.getElementById('view-success').classList.add('active');
@@ -762,23 +959,36 @@ function addToCal(type){
   if(type==='google'){
     window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=30+Minute+Meeting+with+Alex+Johnson&dates=${st}/${et}&details=Google+Meet+link+sent+via+email&location=Google+Meet`,'_blank');
   }else{
-    const ic=`BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Cal//EN\r\nBEGIN:VEVENT\r\nDTSTART:${st}\r\nDTEND:${et}\r\nSUMMARY:30 Minute Meeting – Alex Johnson\r\nDESCRIPTION:Google Meet link will be sent via email.\r\nLOCATION:Google Meet\r\nEND:VEVENT\r\nEND:VCALENDAR`;
-    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ic],{type:'text/calendar'}));a.download='meeting-alex-johnson.ics';a.click();
+    const ic=`BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Cal//EN\r\nBEGIN:VEVENT\r\nDTSTART:${st}\r\nDTEND:${et}\r\nSUMMARY:30 Minute Meeting – Vivek Kathait\r\nDESCRIPTION:Google Meet link will be sent via email.\r\nLOCATION:Google Meet\r\nEND:VEVENT\r\nEND:VCALENDAR`;
+    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ic],{type:'text/calendar'}));a.download='meeting-vivek-kathait.ics';a.click();
   }
 }
 
 function resetAll(){
-  S.date=null;S.slot=null;S.year=NOW.getFullYear();S.month=NOW.getMonth();
+  S.date=null;S.slot=null;S.year=NOW.getFullYear();S.month=NOW.getMonth();S.guests=[];
   ['inp-name','inp-email','inp-phone','inp-company'].forEach(id=>{
     const el=document.getElementById(id);el.value='';el.className='finput';
   });
+  ['inp-industry','inp-teamsize','inp-revenue'].forEach(id=>{
+    const el=document.getElementById(id);if(el){el.selectedIndex=0;el.className='finput';}
+  });
   document.getElementById('inp-notes').value='';
+  document.getElementById('inp-industry-other').value='';
+  document.getElementById('inp-industry-other-wrap').style.display='none';
+  ['inp-guest-email-1','inp-guest-email-2'].forEach(id=>{
+    const el=document.getElementById(id);if(el){el.value='';el.classList.remove('err');}
+  });
+  ['guest-email-err-1','guest-email-err-2'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.style.display='none';
+  });
+  document.getElementById('guests-body').style.display='none';
+  document.getElementById('guests-chevron').style.transform='rotate(0deg)';
   document.getElementById('view-success').classList.remove('active');
   document.getElementById('progress-bar').style.display='flex';
-  renderCal();goTo('cal');
+  goTo('form');
 }
 
-renderCal();
+goTo('form');
 </script>
 </body>
 </html>
